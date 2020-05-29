@@ -1,0 +1,160 @@
+
+body, html {
+  text-align: center;
+  height: 100%;
+}
+
+.splashPage {
+  position: absolute;
+  display: flex;
+  background-color: #282c34;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.mercedes {
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #00D2BE;
+}
+
+.mercedes table, .mercedes th, .mercedes td{
+  border: black solid 1px;
+}
+
+.ferrari{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #DA291C;
+  color: white;
+}
+
+.ferrari table, .ferrari th, .ferrari td{
+  border: black solid 1px;
+  border-collapse: separate;
+}
+
+.red_bull{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #001a30;
+  color: #ffffff;
+}
+
+.red_bull table, .red_bull th, .red_bull td {
+  border: #ffffff solid 1px;
+}
+
+.mclaren{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #FF8700;
+}
+
+.mclaren table, .mclaren td, .mclaren th {
+  border: black solid 1px;
+}
+
+.renault{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #ffcc33;
+}
+
+.renault table, .renault td, .renault th {
+  border: black solid 1px;
+}
+
+.toro_rosso {
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #011321;
+  color: #fff;
+}
+
+.toro_rosso table, .toro_rosso td, .toro_rosso th {
+  border: #fff solid 1px;
+}
+
+.racing_point{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #f394c6;
+}
+
+.racing_point table, .racing_point td, .racing_point th {
+  border: black solid 1px;
+}
+
+.alfa{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #a51d2f;
+  color: white;
+}
+
+.alfa table, .alfa td, .alfa th{
+  border: black solid 1px;
+}
+
+.haas{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: black;
+  color: #fff;
+}
+
+.haas table, .haas td, .haas th{
+  border: #E6002D solid 1px;
+}
+
+.williams{
+  position: absolute;
+  height: auto;
+  width: 100vw;
+  background-color: #00a0de;
+  color: #fff;
+}
+
+.williams table, .williams th, .williams td {
+  border: black solid 1px;
+}
+
+
+td, th {
+  padding:10px;
+}
+
+.table {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+}
+
+.col {
+  float: left;
+  width: 33.33%
+}
+
+.row {
+  width: 100vw;
+  display: table;
+}
+
+h1 {
+  margin-top: 15vh;
+  margin-bottom: 10vh;
+}
