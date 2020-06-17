@@ -2,9 +2,10 @@
 import * as React from 'react';
 import Table from '../components/table';
 import * as Constants from "../utils/constants"
+import GHDark from "../utils/GitHub-Mark-32px.png";
+import GHLight from "../utils/GitHub-Mark-Light-32px.png";
 
 interface Props {
-    
 }
 
 interface State {
@@ -120,6 +121,10 @@ export default class FirstPage extends React.PureComponent<Props, State> {
    getClassName(){
        return !this.state.showWinner ? "splashPage" :  this.state.podium[0].Constructor.constructorId
    }
+
+   getGHIcon(){
+       return Constants.LightIconConstructors.includes(this.getClassName()) ? GHLight : GHDark;
+   }
    
     render() {
         return (
@@ -148,6 +153,9 @@ export default class FirstPage extends React.PureComponent<Props, State> {
                                 <Table title={this.getStandingsTitle("Constructor Standings")} headers={["position", "constructor", "points", "wins"]} data={this.state.constructorStandings} />
                             </div>
                         </div>
+                        <a href={Constants.GitHubURL}>
+                            <img src={this.getGHIcon()} alt={"GitHub"} />
+                        </a>
                     </div>
                         ) : null}
             </div>
