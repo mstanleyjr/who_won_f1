@@ -1,4 +1,4 @@
-export const BaseURL = "http://ergast.com/api/f1/current/"
+export const BaseURL = "https://ergast.com/api/f1/current/"
 export const ResultsURLSuffix = "last/results.json"
 export const DriverStandingsSuffix = "driverStandings.json"
 export const ConstructorStandingsSuffix = "constructorStandings.json"
