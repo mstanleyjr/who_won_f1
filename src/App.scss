@@ -144,14 +144,22 @@ td, th {
   margin-bottom: 3%;
 }
 
+
+.row:after {
+  clear: both;
+  display: table;
+  content: "";
+}
+
 .col {
   float: left;
   width: 33.33%
 }
 
-.row {
-  width: 100vw;
-  display: table;
+@media screen and (max-width: 1500px) {
+ .col{
+   width: 100%;
+ }
 }
 
 h1 {
