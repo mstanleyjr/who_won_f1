@@ -40,55 +40,89 @@ export default class FirstPage extends React.PureComponent<Props, State> {
     }
 
     componentDidMount() {
-        this.getRaceData()
+        this.getDriverStandings()
     }
 
-   getRaceData(){
-       fetch(Constants.BaseURL + Constants.ResultsURLSuffix)
-          .then(res => res.json())
-          .then(
-              (result) => {
-                  var raceData = result.MRData.RaceTable.Races[0]
-                  this.setState({
-                      lastRaceName: raceData.raceName,
-                      lastRaceDate: raceData.date,
-                      podium: raceData.Results.slice(0, 3),
-                      loading: false,
-                      raceWinner: raceData.Results[0]
-                  });
-              },
-              (error) => {
-                  console.log(error)
-              }
-          )
-
+   getDriverStandings(){
         fetch(Constants.BaseURL + Constants.DriverStandingsSuffix)
               .then(res => res.json())
               .then (
                   (result) => {
-                      var standingList = result.MRData.StandingsTable.StandingsLists[0]
+                    var standingList = result.MRData.StandingsTable.StandingsLists[0]
                       this.setState({
                           seasonString: standingList.season,
                           roundString: standingList.round,
                           driverStandings: standingList.DriverStandings
+                      }, () => {
+                        this.getConstructorStandings()
                       })
                   },
                   (error) => {
                     console.log(error)
+                    this.setState({loading: false})
                 }
               )
+            }
 
-        fetch(Constants.BaseURL + Constants.ConstructorStandingsSuffix)
-             .then(res => res.json())
-             .then (
-                 (result) => {
-                     var standingList = result.MRData.StandingsTable.StandingsLists[0]
-                     this.setState({
-                         constructorStandings: standingList.ConstructorStandings
-                     })
-                 }
-             )
-   }
+    getConstructorStandings(){
+      fetch(Constants.BaseURL + Constants.ConstructorStandingsSuffix)
+           .then(res => res.json())
+           .then (
+               (result) => {
+                   var standingList = result.MRData.StandingsTable.StandingsLists[0]
+                   this.setState({
+                       constructorStandings: standingList.ConstructorStandings
+                   }, () => {
+                     this.getRaceResults()
+                   })
+               },
+               (error) => {
+                 console.log(error)
+                 this.setState({loading: false})
+               }
+           )
+
+
+ }
+
+    getRaceResults(){
+      var raceData: any;
+      fetch(Constants.BaseURL + Constants.ResultsURLSuffix)
+         .then(res => res.json())
+         .then(
+             (result) => {
+                 raceData = result.MRData.RaceTable.Races[0]
+                 this.setRaceData(raceData)
+             },
+             (error) => {
+               console.log("ERROR")
+               // Issue with api at end of seasons
+                 var updatedURLString = this.state.seasonString + "/" + this.state.roundString + "/results.json"
+                 console.log(updatedURLString)
+                 fetch(Constants.BaseURL + updatedURLString)
+                      .then(res => res.json())
+                      .then(
+                        (result) => {
+                          raceData = result.MRData.RaceTable.Races[0]
+                          this.setRaceData(raceData)
+                        }
+                      )
+             }
+         )
+    }
+
+    setRaceData(raceData: any){
+      if (raceData !== undefined && raceData !== null) {
+        this.setState({
+            lastRaceName: raceData.raceName,
+            lastRaceDate: raceData.date,
+            podium: raceData.Results.slice(0, 3),
+            loading: false,
+            raceWinner: raceData.Results[0]
+        });
+      }
+    }
+
 
    podiumDisplay = () => {
        var test = (
@@ -99,7 +133,7 @@ export default class FirstPage extends React.PureComponent<Props, State> {
             })
        })}
        </div>)
-       
+
        return test
    }
 
@@ -109,7 +143,7 @@ export default class FirstPage extends React.PureComponent<Props, State> {
             <div>
                 <h1>{driverStats.givenName} {driverStats.familyName} - {this.state.raceWinner.Constructor.name}</h1>
             </div>
-        )       
+        )
    }
 
    getStandingsTitle(classification: string){
@@ -125,18 +159,18 @@ export default class FirstPage extends React.PureComponent<Props, State> {
    getGHIcon(){
        return Constants.LightIconConstructors.includes(this.getClassName()) ? GHLight : GHDark;
    }
-   
+
     render() {
         return (
             <div className={this.getClassName()}>
                 {this.state.loading ? <h2>Loading</h2> : !this.state.showWinner ? (
-                    <div> 
+                    <div>
                         <h3>Who Won The {this.state.lastRaceName}?</h3>
                         <h3>On {this.state.lastRaceDate}</h3>
                         {!this.state.showWinner ? <button onClick={() => this.setState({showWinner: true})}>Find Out!</button> : null}
 
                     </div>
-                ) : null   
+                ) : null
                 }
                 {this.state.showWinner ? (
                     <div>
@@ -162,4 +196,3 @@ export default class FirstPage extends React.PureComponent<Props, State> {
         )
     }
 }
-
