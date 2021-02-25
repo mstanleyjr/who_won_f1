@@ -86,27 +86,17 @@ export default class FirstPage extends React.PureComponent<Props, State> {
  }
 
     getRaceResults(){
-      var raceData: any;
-      fetch(Constants.BaseURL + Constants.ResultsURLSuffix)
+      var resultsURLString = this.state.seasonString + "/" + this.state.roundString + "/results.json"
+
+      fetch(Constants.BaseURL + resultsURLString)
          .then(res => res.json())
          .then(
              (result) => {
-                 raceData = result.MRData.RaceTable.Races[0]
-                 this.setRaceData(raceData)
+                 this.setRaceData(result.MRData.RaceTable.Races[0])
              },
              (error) => {
                console.log("ERROR")
-               // Issue with api at end of seasons
-                 var updatedURLString = this.state.seasonString + "/" + this.state.roundString + "/results.json"
-                 console.log(updatedURLString)
-                 fetch(Constants.BaseURL + updatedURLString)
-                      .then(res => res.json())
-                      .then(
-                        (result) => {
-                          raceData = result.MRData.RaceTable.Races[0]
-                          this.setRaceData(raceData)
-                        }
-                      )
+               this.setState({loading: false})
              }
          )
     }

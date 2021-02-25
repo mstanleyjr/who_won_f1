@@ -1,5 +1,4 @@
 export const BaseURL = "https://ergast.com/api/f1/"
-export const ResultsURLSuffix = "current/last/results.json"
 export const DriverStandingsSuffix = "current/driverStandings.json"
 export const ConstructorStandingsSuffix = "current/constructorStandings.json"
 export const LightIconConstructors = ["ferrari", "red_bull", "toro_rosso", "alfa", "haas", "williams"]
